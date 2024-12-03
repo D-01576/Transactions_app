@@ -15,16 +15,23 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+.bg-blue{
+  background: rgba(0, 0, 0, 0.14);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(19.8px);
+  -webkit-backdrop-filter: blur(19.8px);
+  border: 1px solid rgba(0, 0, 0, 0.36);
+}
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  /* color: rgb(var(--foreground-rgb)); */
+  background: url(../public/background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* z-index: -1; */
 }
+
 
 @layer utilities {
   .text-balance {
