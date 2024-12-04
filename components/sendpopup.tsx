@@ -1,20 +1,17 @@
 import axios from "axios";
-import { useState } from "react"
+import { use, useState } from "react"
 import Cookies from "js-cookie";
 
-export default function Deposit({isOpen, onClose}:any){
+export default function Send({isOpen, onClose}:any){
     const [amount, setAmount] = useState(0)
+    const [email, setEmail] = useState("")
     const [error,setError] = useState("")
-    const handleDeposit = async ()=>{
-        if(amount < 1){
-            setError("deposit should be alteast 1")
-            return
-        }else if(amount > 10000) {
-            setError("deposit should be lesser than 10000")
-            return
-        }
+    const handlesending = async ()=>{
         const token = Cookies.get("access-token")
-        const response = await axios.post("http://localhost:5000/deposit", {amount : Number(amount)}, {
+        const response = await axios.post("http://localhost:5000/send", {
+            receiver: email,
+            amount : Number(amount)
+        }, {
             headers: {
                 "Content-Type": "application/json",
                 token : token
@@ -36,7 +33,17 @@ export default function Deposit({isOpen, onClose}:any){
             </div>
         )}
             <h2 className="text-lg font-semibold text-gray-700 mb-4">
-              Enter Deposit Amount
+              Enter email
+            </h2>
+            <input
+              type="email"
+              placeholder="Enter email"
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+              value={email}
+              onChange={(e:any) => setEmail(e.target.value)}
+            />
+            <h2 className="text-lg font-semibold text-gray-700 mb-4">
+              Enter amount to send
             </h2>
             <input
               type="number"
@@ -48,7 +55,7 @@ export default function Deposit({isOpen, onClose}:any){
             <div className="flex justify-end mt-4">
               <button
                 className="px-4 py-2 bg-green-600 text-white rounded mr-2 hover:bg-green-700"
-                onClick={handleDeposit}
+                onClick={handlesending}
               >
                 Deposit
               </button>
